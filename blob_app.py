@@ -57,13 +57,14 @@ def main():
     st.sidebar.title("Navigation")
     options = ["Create Container", "Upload Images", "Extract Image Information", "Show Container", "Delete Container"]
     choice = st.sidebar.selectbox("Choose Action", options)
-    # DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;'
-    # AccountName='AccountName=blobstorageaccountml;'
-    # AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
-    # EndpointSuffix='EndpointSuffix=core.windows.net'
-    # connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
+    
+    DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;'
+    AccountName='AccountName=blobstorageaccountml;'
+    AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
+    EndpointSuffix='EndpointSuffix=core.windows.net'
+    connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
 
-    connection_string = st.text_input("Azure Storage Connection String")
+    #connection_string = st.text_input("Azure Storage Connection String")
     
     if choice == "Create Container": 
         container_name = st.text_input("Enter Container Name")
