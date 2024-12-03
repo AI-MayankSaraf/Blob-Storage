@@ -59,8 +59,8 @@ def main():
     choice = st.sidebar.selectbox("Choose Action", options)
 
     connection_string = st.text_input("Azure Storage Connection String")
-
-    if choice == "Create Container":
+    
+    if choice == "Create Container": 
         container_name = st.text_input("Enter Container Name")
         if st.button("Create"):
             blob_service_client = get_blob_service_client(connection_string)
@@ -81,20 +81,20 @@ def main():
             blob_service_client = get_blob_service_client(connection_string)
             data = extract_text_from_images(blob_service_client, container_name)
             st.write(data)
-
-    elif choice == "Show Container":
+    
+    elif choice == "Show Container": 
         if st.button("Show"):
             blob_service_client = get_blob_service_client(connection_string)
             containers = blob_service_client.list_containers()
             for container in containers:
-                st.success(container.name)
-
-    elif choice == "Delete Container":
+                st.success(container.name)    
+                    
+    elif choice == "Delete Container":  
         container_name = st.text_input("Enter Container Name")
         if st.button("Delete"):
             blob_service_client = get_blob_service_client(connection_string)
             result = blob_service_client.delete_container(container_name)
-            st.success(result)
+            st.success(result)             
 
 if __name__ == "__main__":
     main()
