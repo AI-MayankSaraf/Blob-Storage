@@ -100,7 +100,7 @@ def main():
         if st.button("Delete"):
             blob_service_client = get_blob_service_client(connection_string)
             result = blob_service_client.delete_container(container_name)
-            st.success(result)             
+            st.success("Deleted.")             
 
 if __name__ == "__main__":
     main()
