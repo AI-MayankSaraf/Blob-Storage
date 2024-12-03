@@ -58,9 +58,18 @@ def main():
     options = ["Create Container", "Upload Images", "Extract Image Information", "Show Container", "Delete Container"]
     choice = st.sidebar.selectbox("Choose Action", options)
 
-    connection_string = st.text_input("Azure Storage Connection String")
-    
-    if choice == "Create Container": 
+    DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;'
+    AccountName='AccountName=blobstorageaccountml;'
+    AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
+    EndpointSuffix='EndpointSuffix=core.windows.net'
+    connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
+
+    #AccountName = st.text_input("Please enter account name")
+    #AccountKey = st.text_input("Please enter account key")
+
+    #connection_string = st.text_input("Azure Storage Connection String")
+
+    if choice == "Create Container":
         container_name = st.text_input("Enter Container Name")
         if st.button("Create"):
             blob_service_client = get_blob_service_client(connection_string)
@@ -81,20 +90,20 @@ def main():
             blob_service_client = get_blob_service_client(connection_string)
             data = extract_text_from_images(blob_service_client, container_name)
             st.write(data)
-    
-    elif choice == "Show Container": 
+
+    elif choice == "Show Container":
         if st.button("Show"):
             blob_service_client = get_blob_service_client(connection_string)
             containers = blob_service_client.list_containers()
             for container in containers:
-                st.success(container.name)    
-                    
-    elif choice == "Delete Container":  
+                st.success(container.name)
+
+    elif choice == "Delete Container":
         container_name = st.text_input("Enter Container Name")
         if st.button("Delete"):
             blob_service_client = get_blob_service_client(connection_string)
             result = blob_service_client.delete_container(container_name)
-            st.success(result)             
+            st.success(result)
 
 if __name__ == "__main__":
     main()
