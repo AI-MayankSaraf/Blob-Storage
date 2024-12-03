@@ -61,7 +61,7 @@ def main():
     # AccountName='AccountName=blobstorageaccountml;'
     # AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
     # EndpointSuffix='EndpointSuffix=core.windows.net'
-    connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
+    # connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
 
     connection_string = st.text_input("Azure Storage Connection String")
     
