@@ -51,20 +51,22 @@ def extract_text_from_images(blob_service_client, container_name):
 #Step 5: Build the Streamlit App
 
 import streamlit as st
-
+from PIL import Image
 def main():
     st.title("Azure Blob Storage Manager")
     st.sidebar.title("Navigation")
     options = ["Create Container", "Upload Images", "Extract Image Information", "Show Container", "Delete Container"]
     choice = st.sidebar.selectbox("Choose Action", options)
     
-    DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;'
-    AccountName='AccountName=blobstorageaccountml;'
-    AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
+    DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;' 
     EndpointSuffix='EndpointSuffix=core.windows.net'
-    connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix
-
-    #connection_string = st.text_input("Azure Storage Connection String")
+    AccountName = st.text_input("Account Name")
+    if AccountName.strip() == "":
+        AccountName='AccountName=blobstorageaccountml;'
+    AccountKey = st.text_input("Account Key") 
+    if AccountKey.strip() == "":
+        AccountKey='AccountKey=AP4/n72bNnLwraJbZdCqaEZ5WsXIcvvF+n1a0oXSaILOP9sNdyF8XVJtKmXYi+IpCm/VsojveV2Q+AStV12+fQ==;'
+    connection_string = DefaultEndpointsProtocol+AccountName+AccountKey+EndpointSuffix  
     
     if choice == "Create Container": 
         container_name = st.text_input("Enter Container Name")
@@ -93,14 +95,14 @@ def main():
             blob_service_client = get_blob_service_client(connection_string)
             containers = blob_service_client.list_containers()
             for container in containers:
-                st.success(container.name)    
-                    
+                st.success(container.name)   
+                                
     elif choice == "Delete Container":  
         container_name = st.text_input("Enter Container Name")
         if st.button("Delete"):
             blob_service_client = get_blob_service_client(connection_string)
             result = blob_service_client.delete_container(container_name)
-            st.success("Deleted.")             
+            st.success(result)             
 
 if __name__ == "__main__":
     main()
