@@ -55,7 +55,7 @@ from PIL import Image
 def main():
     st.title("Azure Blob Storage Manager")
     st.sidebar.title("Navigation")
-    options = ["Create Container", "Upload Images", "Extract Image Information", "Show Container", "Delete Container"]
+    options = ["Create Container", "Upload Images", "Show Container", "Delete Container"]
     choice = st.sidebar.selectbox("Choose Action", options)
     
     DefaultEndpointsProtocol='DefaultEndpointsProtocol=https;' 
@@ -83,13 +83,6 @@ def main():
             result = upload_images_to_blob(blob_service_client, container_name, uploaded_files)
             st.success(result)
 
-    elif choice == "Extract Image Information":
-        container_name = st.text_input("Enter Container Name")
-        if st.button("Extract"):
-            blob_service_client = get_blob_service_client(connection_string)
-            data = extract_text_from_images(blob_service_client, container_name)
-            st.write(data)
-    
     elif choice == "Show Container": 
         if st.button("Show"):
             blob_service_client = get_blob_service_client(connection_string)
